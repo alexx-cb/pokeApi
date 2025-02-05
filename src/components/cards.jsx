@@ -47,7 +47,7 @@ export function crearCards() {
                     <div key={pokemon.name} class= "contenedorPokemon">
                         <Link to={'/Detalle/'+pokemon.id}>
                         
-                        <img src={pokemon.sprites.front_default} alt={`${pokemon.name}`}/>
+                        <img src={pokemon.sprites.front_default} alt={pokemon.name}/>
                         <h2>{pokemon.name}</h2>
                         {pokemon.types.map(tipo => (
                             <p key={tipo.type.name}> {tipo.type.name} </p>

@@ -25,14 +25,14 @@ function App() {
 
       <Routes>
         <Route exact path='/' Component={landig} />
-        <Route exact path='/Detalle/:idPokemon' Component={detallePokemon} />
+        
         <Route extact path='/Login' Component={Login} />
-        <Route exact path='/Cartas' Component={ crearCards } />
+        
         <Route exact path='/Juego' Component={ Juego} />
 
         <Route element={<RutasPrivadas />}>
-        
-          
+          <Route exact path='/Cartas' Component={ crearCards } />
+          <Route exact path='/Detalle/:idPokemon' Component={detallePokemon} />
 
         </Route> 
 
