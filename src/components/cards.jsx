@@ -8,7 +8,6 @@ export function crearCards() {
 
     
     function peticion() {
-        // fetch de la api para pillar los pokemons
         fetch("https://pokeapi.co/api/v2/pokemon?limit=" + limit + "&offset=" + offset)
             .then(response => response.json())
             .then(data => {

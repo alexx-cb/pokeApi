@@ -11,6 +11,10 @@ export function Juego(){
 
     var vidas=3;
 
+    function idAleatorio(){
+        setidPokeAleatorio(Math.floor(Math.random() * 1304) + 1);
+    }
+
     function peticion(){
         if (idPokeAleatorio !== null) {
             fetch(`https://pokeapi.co/api/v2/pokemon/${idPokeAleatorio}`)
@@ -25,9 +29,7 @@ export function Juego(){
         }
     }
 
-    function idAleatorio(){
-        setidPokeAleatorio(Math.floor(Math.random() * 1304) + 1);
-    }
+    
 
     function intento(valor) {
         const tipoPokemon = pokeAleatorio.types.map(tipo => tipo.type.name);
