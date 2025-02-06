@@ -139,6 +139,7 @@ export function Juego(){
         try{
             const consulta = await getDocs(collection(db, "PokeApi"));
             const usuarios = consulta.docs.map(campos => campos.data());
+            usuarios.sort((a, b) => b.Puntos - a.Puntos);
             setUsuariosRanking(usuarios);
         }catch(error){
             console.error("Error al obtener los usuarios: ", error);
