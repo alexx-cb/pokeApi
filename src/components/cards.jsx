@@ -44,7 +44,8 @@ export function crearCards() {
 
     return (
         <div className='contenedor-principal'>
-            <h1>Pokemons</h1>
+            <h1 className='titulo'>Pokemons</h1>
+            <hr />
             <div className="pokemon-list-container">
                 {pokemons.map(pokemon => (
                     <Link to={`/Detalle/${pokemon.id}`} key={pokemon.name} className="pokemon-card">

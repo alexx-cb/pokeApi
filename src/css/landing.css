@@ -1,3 +1,13 @@
+hr{
+    width: 100%;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    background-color: black;
+    top: 49px;
+    position: fixed;
+    z-index: 1000;
+}
+
 .landing-container {
     max-width: 1200px;
     margin: 0 auto;
@@ -6,10 +16,11 @@
 }
 
 .info-section {
-    background-color: #f0f0f0;
+    background-color: #ffffff;
     border-radius: 10px;
     padding: 2rem;
     margin-bottom: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .info-section h1 {
@@ -27,20 +38,14 @@
 .info-section ul {
     list-style-type: none;
     padding-left: 0;
+    color: #333;
 }
 
 .info-section li {
     margin-bottom: 0.5rem;
     padding-left: 1.5rem;
     position: relative;
-}
-
-.info-section li::before {
-    content: '•';
-    color: #ffcb05;
-    font-size: 1.5rem;
-    position: absolute;
-    left: 0;
+    text-decoration: none;
 }
 
 .action-section {
@@ -69,7 +74,7 @@
 }
 
 .action-card p {
-    color: #666;
+    color: #333;
     margin-bottom: 1.5rem;
 }
 

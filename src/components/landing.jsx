@@ -18,6 +18,7 @@ export function landing() {
 
     return (
         <>
+        <hr />
         <div className="landing-container">
             <div className="info-section">
                 <h1>Bienvenido a PokéAPI Explorer</h1>
@@ -33,7 +34,7 @@ export function landing() {
                 <div className="action-card">
                     <h2>Tarjetas Pokémon</h2>
                     <p>Explora nuestra colección de tarjetas Pokémon.</p>
-                    <Link to="/Cartas" className="action-button">Ver Tarjetas</Link>
+                    <Link to="/Cartas" className="action-button">Ver Pokemons</Link>
                 </div>
                 
                 <div className="action-card">
@@ -50,7 +51,7 @@ export function landing() {
             
         </div>
         <footer className="footer">
-        Trabajo realizado por Alejandro Cabrera, Código disponible en <a href="https://github.com/alexx-cb" target="_blank" rel="noopener noreferrer">GitHub</a>
+        Trabajo realizado por Alejandro Cabrera <a href="https://github.com/alexx-cb" target="_blank" rel="noopener noreferrer">GitHub</a> © PokeApi
         </footer>
         </>
     );

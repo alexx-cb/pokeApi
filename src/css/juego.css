@@ -1,3 +1,13 @@
+hr{
+    width: 100%;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    background-color: black;
+    top: 49px;
+    position: fixed;
+    z-index: 1000;
+}
+
 /* Estilos para los tipos de Pokémon */
 .type-button.normal { background-color: #A8A878; }
 .type-button.fire { background-color: #F08030; }
@@ -52,6 +62,7 @@
     color: #3c5aa6;
     margin-bottom: 20px;
     text-align: center;
+    margin-top: 50px;
 }
 
 .game-container {
@@ -64,12 +75,14 @@
     width: 30%;
     padding: 20px;
     overflow-y: auto;
-    border-right: 1px solid #ccc;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.5);
 }
 
 .ranking-title {
     text-align: center;
     margin-bottom: 20px;
+    color: #3c5aa6;
 }
 
 .ranking-item {
@@ -77,7 +90,7 @@
     justify-content: space-between;
     margin-bottom: 10px;
     padding: 5px;
-    background-color: #f0f0f0;
+    background-color: #3c5aa6;
     border-radius: 5px;
 }
 
@@ -105,6 +118,8 @@
     justify-content: space-around;
     width: 100%;
     margin: 10px 0;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
 }
 
 .types-container {
@@ -113,6 +128,10 @@
     justify-content: center;
     gap: 10px;
     margin-top: 20px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+    border-radius: 5px;
+    background-color: #edf0f3;
 }
 
 .type-button {
@@ -122,4 +141,16 @@
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
+}
+
+h1, h2, h3{
+    color: #1a86ec;
+    text-decoration: none;
+}
+.cargando{
+    font-weight: 2rem;
+    color: black;
+}
+.juego{
+    color: #3c5aa6;
 }

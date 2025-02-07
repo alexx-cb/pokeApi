@@ -27,6 +27,7 @@ export function detallePokemon() {
 
     return (
         <div className="detalle-container">
+            <hr />
             <div className="pokemon-card-detalle">
                 <div 
                     className="pokemon-card-background" 
@@ -41,7 +42,7 @@ export function detallePokemon() {
                     <div className="pokemon-info">
                         <div className="left-column">
                             <div className="pokemon-stats info-box">
-                                <h3>Stats</h3>
+                                <h3 className="detalles">Stats</h3>
                                 {datosPokemon.stats.map(estadistica => (
                                     <p key={estadistica.stat.name} className="stat">
                                         <span className="stat-name">{estadistica.stat.name}:</span> 
@@ -58,13 +59,13 @@ export function detallePokemon() {
                                     ))}
                                 </div>
                                 <div className="pokemon-measurements">
-                                    <h3>Measurements</h3>
+                                    <h3 className="detalles">Measurements</h3>
                                     <p>Height: {datosPokemon.height}</p>
                                     <p>Weight: {datosPokemon.weight}</p>
                                 </div>
                             </div>
                             <div className="pokemon-abilities info-box">
-                                <h3>Abilities</h3>
+                                <h3 className="detalles">Abilities</h3>
                                 {datosPokemon.abilities.map(ability => (
                                     <p key={ability.ability.name} className="ability">
                                         {ability.ability.name}

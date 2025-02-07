@@ -147,6 +147,8 @@ export function Login(){
     }
 
     return (
+      <>
+      
         <div className="login-container">
   {hayUsuario ? (
     <div>
@@ -193,6 +195,7 @@ export function Login(){
             <input
               type="email"
               onChange={(e) => setEmail(e.target.value)}
+              placeholder="email@email.com"
             />
           </div>
           <div className="form-group">
@@ -200,6 +203,7 @@ export function Login(){
             <input
               type="password"
               onChange={(e) => setPassword1(e.target.value)}
+              placeholder="Your Password"
             />
           </div>
           <button type="submit">Iniciar Sesión</button>
@@ -213,6 +217,8 @@ export function Login(){
     </>
   )}
 </div>
+<hr className="full-width-hr" />
+      </>
     );
 
 }

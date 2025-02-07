@@ -158,12 +158,13 @@ export function Juego(){
     }
 
     if (!pokeAleatorio || !pokeAleatorio.types) {
-        return <div>Loading...</div>;
+        return <div className="cargando">Loading...</div>;
     }
     
 
     return(
         <div className="game-wrapper">
+            <hr />
     <h1 className="game-title">Adivina el tipo del pokemon</h1>
     <div className="game-container">
         <div className="ranking-section">
@@ -178,10 +179,10 @@ export function Juego(){
 
         <div className="game-section">
             <img src={pokeAleatorio.sprites.front_default} alt={pokeAleatorio.name} className="pokemon-image" /> 
-            <h2 className="pokemon-name">{pokeAleatorio.name}</h2>
+            <h2 className="pokemon-name juego">{pokeAleatorio.name}</h2>
             <div className="game-stats">
                 <h3>Vidas: {vidas}</h3>
-                <h4>Tus Puntos: {puntosUsuario}</h4>
+                <h3>Tus Puntos: {puntosUsuario}</h3>
             </div>
 
             <div className="types-container">
