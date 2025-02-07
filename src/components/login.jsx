@@ -2,6 +2,7 @@ import { getAuth, signInWithPopup ,GoogleAuthProvider, signOut, onAuthStateChang
 import React, { useState, useEffect } from "react";
 import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
 import {db , githubProvider} from '../firebase'
+import '../css/login.css';
 
 export function Login(){
 
@@ -146,70 +147,72 @@ export function Login(){
     }
 
     return (
-        <>
-            {hayUsuario ? (
-                <div>
-                    <p>Hola {nombreUsuario}</p>
-                    <button onClick={LogOut}>Cerrar Sesion</button>
-                </div>
-            ) : (
-                <>
-                    {isRegistering ? (
-                        <form onSubmit={registrarUsuario}>
-                            <div>
-                                <label>Nombre:</label>
-                                <input
-                                    type="text"
-                                    onChange={(e) => setNombreUsuario(e.target.value)}
-                                    required
-                                />
-                            </div>
-                            <div>
-                                <label>Email:</label>
-                                <input
-                                    type="email"
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    required
-                                />
-                            </div>
-                            <div>
-                                <label>Password:</label>
-                                <input
-                                    type="password"
-                                    onChange={(e) => setPassword1(e.target.value)}
-                                    required
-                                />
-                            </div>
-                            <button type="submit">Registrar</button>
-                            <button type="button" onClick={() => setIsRegistering(false)}>Ya tienes una cuenta? Inicia Sesion</button>
-                        </form>
-                    ) : (
-                        <form onSubmit={iniciarSesion}>
-                            <div>
-                                <label>Email:</label>
-                                <input
-                                    type="email"
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    
-                                />
-                            </div>
-                            <div>
-                                <label>Password:</label>
-                                <input
-                                    type="password"
-                                    onChange={(e) => setPassword1(e.target.value)}
-                                    
-                                />
-                            </div>
-                            <button type="submit">Iniciar Sesion</button>
-                            <button onClick={loginGoogle}>Iniciar Sesion con Google</button>
-                            <button onClick={githubLogIn}>Iniciar Sesion con Github </button>
-                            <button type="button" onClick={() => setIsRegistering(true)}>No tienes una cuenta? Registrate</button>
-                        </form>
-                    )}
-                </>
-            )}
-        </>
+        <div className="login-container">
+  {hayUsuario ? (
+    <div>
+      <p className="user-greeting">Hola {nombreUsuario}</p>
+      <button className="logout-button" onClick={LogOut}>Cerrar Sesión</button>
+    </div>
+  ) : (
+    <>
+      {isRegistering ? (
+        <form onSubmit={registrarUsuario}>
+          <div className="form-group">
+            <label>Nombre:</label>
+            <input
+              type="text"
+              onChange={(e) => setNombreUsuario(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label>Email:</label>
+            <input
+              type="email"
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label>Password:</label>
+            <input
+              type="password"
+              onChange={(e) => setPassword1(e.target.value)}
+              required
+            />
+          </div>
+          <button type="submit">Registrar</button>
+          <button className="switch-form-button" type="button" onClick={() => setIsRegistering(false)}>
+            ¿Ya tienes una cuenta? Inicia Sesión
+          </button>
+        </form>
+      ) : (
+        <form onSubmit={iniciarSesion}>
+          <div className="form-group">
+            <label>Email:</label>
+            <input
+              type="email"
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+          <div className="form-group">
+            <label>Password:</label>
+            <input
+              type="password"
+              onChange={(e) => setPassword1(e.target.value)}
+            />
+          </div>
+          <button type="submit">Iniciar Sesión</button>
+          <button className="google-button" onClick={loginGoogle}>Iniciar Sesión con Google</button>
+          <button className="github-button" onClick={githubLogIn}>Iniciar Sesión con Github</button>
+          <button className="switch-form-button" type="button" onClick={() => setIsRegistering(true)}>
+            ¿No tienes una cuenta? Regístrate
+          </button>
+        </form>
+      )}
+    </>
+  )}
+</div>
     );
 
 }

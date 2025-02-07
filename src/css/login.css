@@ -1,0 +1,98 @@
+.login-container {
+    max-width: 400px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .user-greeting {
+    text-align: center;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .logout-button {
+    display: block;
+    width: 100%;
+    padding: 0.8rem;
+    background-color: #ff3860;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .logout-button:hover {
+    background-color: #ff1443;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-group {
+    margin-bottom: 1rem;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+  }
+  
+  input {
+    width: 93%;
+    padding: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+  }
+  
+  button {
+    padding: 0.8rem;
+    background-color: #3273dc;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 0.5rem;
+  }
+  
+  button:hover {
+    background-color: #2366d1;
+  }
+  
+  .google-button {
+    background-color: #4285f4;
+  }
+  
+  .google-button:hover {
+    background-color: #3367d6;
+  }
+  
+  .github-button {
+    background-color: #333;
+  }
+  
+  .github-button:hover {
+    background-color: #24292e;
+  }
+  
+  .switch-form-button {
+    background-color: transparent;
+    color: #3273dc;
+    text-decoration: underline;
+  }
+  
+  .switch-form-button:hover {
+    background-color: transparent;
+    color: #2366d1;
+  }
+  

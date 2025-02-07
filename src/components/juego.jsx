@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 import { collection, updateDoc, getDocs, query, where, doc } from "firebase/firestore";
 import { onAuthStateChanged, getAuth } from "firebase/auth";
 import { db } from "../firebase";
+import '../css/juego.css';
 
 export function Juego(){
 
     const [idPokeAleatorio, setidPokeAleatorio] = useState();
     const [pokeAleatorio, setPokeAleatorio] = useState([]);
     const valoresPosibles = ["steel", "water", "bug", "drake", "electric", "ghost", "fire", "fairy", "ice", 
-        "fighting", "normal", "plant", "psychic", "ground", "rock", "dark", "poison", "flying"];
+        "fighting", "normal", "grass", "psychic", "ground", "rock", "dark", "poison", "flying"];
 
     const [valoresJuego, setValoresJuego] = useState([]);
     const [emailUsuario, setEmailUsuario] = useState();
@@ -27,7 +28,8 @@ export function Juego(){
     useEffect(() => {
         if (emailUsuario) {
             idAleatorio();
-            obtenerUsuarios(); 
+            obtenerUsuarios();
+            cargarPuntosIniciales(); 
         }
     }, [emailUsuario]);
 
@@ -89,6 +91,7 @@ export function Juego(){
             peticion();
             setVidas(3);
             actualizarPuntos(emailUsuario);
+            obtenerUsuarios();
         } else {
             setVidas(prevVidas => prevVidas - 1);
             if(vidas<1){
@@ -101,38 +104,31 @@ export function Juego(){
     }
 
     async function actualizarPuntos(email) {
-            try {
-
-                const consulta = query(collection(db, "PokeApi"), where('Usuario', '==', email));
-                const comprobacion = await getDocs(consulta);
-                
-                if(!comprobacion.empty){
-                    const doc = comprobacion.docs[0];
-
-                    const datosActuales = doc.data();
-
-                    const puntosActuales = datosActuales.Puntos
-
-                    const nuevosPuntos = puntosActuales + 1;
-        
-                    await updateDoc(doc.ref, {
-                        Puntos: nuevosPuntos
-                        
-                    });
-                    setPuntosUsuario(nuevosPuntos);
-                    console.log(puntosUsuario);
-                    console.log(`Puntos actualizados correctamente. Nuevo valor: ${nuevosPuntos}`);
-                    return nuevosPuntos;
-                } else {
-                    console.log("No se encontró el documento para el email proporcionado");
-                    return false;
-                }
-                
-            } catch (error) {
-                console.error("Error al comprobar si existe: ", error);
+        try {
+            const consulta = query(collection(db, "PokeApi"), where('Usuario', '==', email));
+            const comprobacion = await getDocs(consulta);
+            
+            if(!comprobacion.empty){
+                const doc = comprobacion.docs[0];
+                const datosActuales = doc.data();
+                const puntosActuales = datosActuales.Puntos;
+                const nuevosPuntos = puntosActuales + 1;
+    
+                await updateDoc(doc.ref, {
+                    Puntos: nuevosPuntos
+                });
+                setPuntosUsuario(nuevosPuntos); // Actualiza el estado inmediatamente
+                console.log(`Puntos actualizados correctamente. Nuevo valor: ${nuevosPuntos}`);
+                return nuevosPuntos;
+            } else {
+                console.log("No se encontró el documento para el email proporcionado");
                 return false;
             }
+        } catch (error) {
+            console.error("Error al comprobar si existe: ", error);
+            return false;
         }
+    }
     
 
     async function obtenerUsuarios(){
@@ -146,39 +142,63 @@ export function Juego(){
         }
     }
 
+    async function cargarPuntosIniciales(){
+        try {
+            const consulta = query(collection(db, "PokeApi"), where('Usuario', '==', emailUsuario));
+            const comprobacion = await getDocs(consulta);
+            
+            if(!comprobacion.empty){
+                const doc = comprobacion.docs[0];
+                const datosActuales = doc.data();
+                setPuntosUsuario(datosActuales.Puntos);
+            }
+        } catch (error) {
+            console.error("Error al cargar los puntos iniciales: ", error);
+        }
+    }
+
     if (!pokeAleatorio || !pokeAleatorio.types) {
         return <div>Loading...</div>;
     }
     
 
     return(
-        <>
-        <div>
-            <img src={pokeAleatorio.sprites.front_default} alt={pokeAleatorio.name} /> 
-            <h1>{pokeAleatorio.name}</h1>
-            <h3>Vidas: {vidas}</h3>
-            <h4>Tus Puntos: {puntosUsuario}</h4>
-
-
-            {valoresJuego.map((valor, index)=>(
-            <div key={index} onClick={() => intento(valor)}>
-                <p>{valor}</p>
-            </div>
-            
+        <div className="game-wrapper">
+    <h1 className="game-title">Adivina el tipo del pokemon</h1>
+    <div className="game-container">
+        <div className="ranking-section">
+            <h2 className="ranking-title">Usuarios y Puntuaciones</h2>
+            {usuariosRanking.map((usuario, index) => (
+                <div key={index} className="ranking-item">
+                    <span>{usuario.Nombre}</span>
+                    <span>{usuario.Puntos} puntos</span>
+                </div>
             ))}
         </div>
 
-        <div>
-                <h2>Usuarios y Puntuaciones</h2>
-                {usuariosRanking.map((usuario, index) => (
-                    <div key={index}>
-                        <p>Nombre: {usuario.Nombre}</p>
-                        <p>Puntos: {usuario.Puntos}</p>
-                    </div>
-                ))}
+        <div className="game-section">
+            <img src={pokeAleatorio.sprites.front_default} alt={pokeAleatorio.name} className="pokemon-image" /> 
+            <h2 className="pokemon-name">{pokeAleatorio.name}</h2>
+            <div className="game-stats">
+                <h3>Vidas: {vidas}</h3>
+                <h4>Tus Puntos: {puntosUsuario}</h4>
             </div>
 
-        </>
+            <div className="types-container">
+                {valoresJuego.map((valor, index) => (
+                    <button 
+                        key={index} 
+                        onClick={() => intento(valor)} 
+                        className={`type-button ${valor}`}
+                    >
+                        {valor}
+                    </button>
+                ))}
+            </div>
+        </div>
+    </div>
+</div>
+
 
     );
 

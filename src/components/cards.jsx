@@ -1,62 +1,80 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import '../css/pokemonList.css';
 
 export function crearCards() {
     const [pokemons, setPokemons] = useState([]);
-    var limit = 20;
-    var offset = 0;
+    const [offset, setOffset] = useState(0);
+    const limit = 20;
 
-    
-    function peticion() {
-        fetch("https://pokeapi.co/api/v2/pokemon?limit=" + limit + "&offset=" + offset)
+    function peticion(nuevoOffset) {
+        fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${nuevoOffset}`)
             .then(response => response.json())
             .then(data => {
-                // con los datos que nos ha dado la api hacemos otro fetch con la url de cada pokemon con sus datos generales
                 const datosGeneralesPokemon = data.results.map(pokemon =>
                     fetch(pokemon.url)
                         .then(response => response.json())
                 );
 
-                // Promesa de que nos dara los datos, nos buscara los datos aunq no esten cargados en ese momento
                 Promise.all(datosGeneralesPokemon)
                     .then(datosPokemon => {
-                        //guardamos si los pokemons antiguos y los nuevos en la misma variable
                         setPokemons(prevPokemons => [...prevPokemons, ...datosPokemon]);
                     })
                     .catch(error => console.error('Error al cargar los datos del pokemon:', error));
             })
-            .catch(error => console.error('Error al hacer fecth de la API:', error));
+            .catch(error => console.error('Error al hacer fetch de la API:', error));
     }
 
     useEffect(() => {
-        peticion();
+        peticion(offset);
     }, []);
 
-    function masPokemons(){
-        offset += limit
-        peticion();
+    function masPokemons() {
+        setOffset(prevOffset => {
+            const nuevoOffset = prevOffset + limit;
+            peticion(nuevoOffset);
+            return nuevoOffset;
+        });
+    }
+    
+
+    function imagenFondo(type) {
+        return `../img/carta_${type}.png`;
     }
 
     return (
-        <>
-
+        <div className='contenedor-principal'>
             <h1>Pokemons</h1>
-            <div>
+            <div className="pokemon-list-container">
                 {pokemons.map(pokemon => (
-                    <div key={pokemon.name} class= "contenedorPokemon">
-                        <Link to={'/Detalle/'+pokemon.id}>
-                        
-                        <img src={pokemon.sprites.front_default} alt={pokemon.name}/>
-                        <h2>{pokemon.name}</h2>
-                        {pokemon.types.map(tipo => (
-                            <p key={tipo.type.name}> {tipo.type.name} </p>
-                        ))}
-                        </Link>
-                    </div>
+                    <Link to={`/Detalle/${pokemon.id}`} key={pokemon.name} className="pokemon-card">
+                        <div 
+                            className="pokemon-card-background" 
+                            style={{backgroundImage: `url(${imagenFondo(pokemon.types[0].type.name)})` }}
+                        ></div>
+                        <div className="pokemon-content">
+                            <span className="pokemon-id">#{pokemon.id.toString().padStart(3, '0')}</span>
+                            <img 
+                                src={pokemon.sprites.front_default} 
+                                alt={pokemon.name} 
+                                className="pokemon-image"
+                            />
+                            <h2 className="pokemon-name">{pokemon.name}</h2>
+                            <div className="pokemon-types">
+                                {pokemon.types.map(tipo => (
+                                    <span 
+                                        key={tipo.type.name} 
+                                        className={`pokemon-type ${tipo.type.name}`}
+                                    >
+                                        {tipo.type.name}
+                                    </span>
+                                ))}
+                            </div>
+                        </div>
+                    </Link>
                 ))}
-                
             </div>
-            <button onClick={masPokemons}>Mas pokemons</button>
-        </>
+            <button onClick={masPokemons} className="more-button">Más pokemons</button>
+        </div>
     );
 }
